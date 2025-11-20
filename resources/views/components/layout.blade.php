@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/svg+xml" href="/img/Popote _Without_BG.svg">
     <title>{{ $title ?? 'Popote' }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -12,7 +13,10 @@
     <header class="shadow" style="background-color: #FCBF49;">
         <nav class="container mx-auto px-4 py-4">
             <div class="flex items-center justify-between">
-                <h1 style="color: #003049">Popote</h1>
+                <div class="flex items-center space-x-2">
+                    <img src="{{ asset('img/Popote _Without_BG.svg') }}" alt="Logo Popote" class="h-15 w-15">
+                    {{-- <h1 style="color: #003049" class="text-xl font-bold">Popote</h1> --}}
+                </div>
                 <ul class="flex space-x-6">
                     <x-nav-link href="{{ route('home') }}" :active="Route::is('home')">
                         Accueil
@@ -30,6 +34,8 @@
             </div>
         </nav>
     </header>
+
+
 
     <!-- Main content -->
     <main class="container mx-auto px-4 py-8 flex flex-col">
