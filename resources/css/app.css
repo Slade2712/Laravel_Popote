@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
+}
+@layer base {
+    h1 {
+        @apply text-3xl font-bold;
+        color: #003049;
+    }
+    h2 {
+        @apply text-2xl font-bold;
+        color: #003049;
+    }
+}
+
+@layer components {
+    /* Bouton par défaut */
+    .btn {
+        @apply px-3 py-2 rounded text-white bg-[#005f73] transition-colors duration-200;
+    }
+
+    /* Bouton actif */
+    .btn-primary {
+        @apply text-white bg-[#D62828];
+    }
+
+    /* Effet hover pour tous les boutons */
+    .btn:hover {
+        @apply text-white bg-[#003049];
+    }
+}

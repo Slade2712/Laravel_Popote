@@ -1,0 +1,67 @@
+version: '3.9'
+
+services:
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: laravel-php
+    volumes:
+      - .:/var/www/html
+      - ./storage:/var/www/html/storage
+    environment:
+      - APP_ENV=local
+      - COMPOSER_MEMORY_LIMIT=-1
+    networks:
+      - laravel-network
+
+  web:
+    image: nginx:latest
+    container_name: laravel-nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www/html:delegated
+      - ./nginx/conf.d:/etc/nginx/conf.d   # monte la config Nginx
+      - ./storage/logs/nginx:/var/log/nginx
+    depends_on:
+      - php
+    networks:
+      - laravel-network
+
+  db:
+    image: mysql:8.0
+    container_name: laravel-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: laravel
+      MYSQL_USER: laravel
+      MYSQL_PASSWORD: secret
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - laravel-network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: herd-phpmyadmin
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "8081:80"
+    depends_on:
+      - db
+    networks:
+      - laravel-network
+
+networks:
+  laravel-network:
+
+volumes:
+  db_data:
+  redis_data:
