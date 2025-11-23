@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('description')->nullable();                            // Optionnel
             $table->longText('instructions');                                   // Instructions de préparation
             $table->string('image')->nullable();                                // Image optionnelle
-            $table->foreignId('category_id')->constrained()->cascadeOnDelete(); // Lien vers category
+            $table->foreignId('category_id')->nullable()->constrained()->cascadeOnDelete()->nullOnDelete(); // Lien vers category
             $table->timestamps();                                               // created_at et updated_at
         });
     }
