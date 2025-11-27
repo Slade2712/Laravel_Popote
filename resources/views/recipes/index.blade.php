@@ -16,9 +16,11 @@
 
                     {{-- IMAGE seulement si disponible --}}
                     @if(!empty($recipe->image))
-                        <img src="{{ $recipe->image }}"
-                             alt="Image recette"
-                             class="w-full h-40 object-cover">
+                       <img 
+                            src="{{ asset('storage/' . $recipe->image) }}" 
+                            alt="{{ $recipe->title }}"
+                            class="w-full h-40 object-cover" 
+                        >
                     @endif
 
                     <div class="p-5">
