@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Recipe;
+use App\Models\Ingredient;
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
@@ -24,25 +25,43 @@ Route::get('/recipes', function() {
 // Formulaire de création
 Route::get('/recipes/create', function() {
     $categories = Category::all();
-    return view('recipes.create', compact('categories'));
+    $ingredients = Ingredient::orderBy('name')->get(); // On récupère les ingrédients
+    return view('recipes.create', compact('categories', 'ingredients')); // On les passe à la vue
 })->name('recipes.create');
 
 // Stockage d'une nouvelle recette
 Route::post('/recipes', function(Request $request) {
-    $data = $request->validate([
+    // 1. Valider toutes les données, y compris les ingrédients
+    $validated = $request->validate([
         'title' => 'required|string|max:255',
         'description' => 'nullable|string',
         'instructions' => 'required|string',
         'category_id' => 'required|exists:categories,id',
         'image' => 'nullable|image|max:2048', // max 2MB
+        'ingredients' => 'nullable|array', // Doit être un tableau
+        'ingredients.*' => 'exists:ingredients,id', // Chaque valeur doit exister dans la table ingredients
+        'quantities' => 'nullable|array',
+        'quantities.*' => 'nullable|string|max:100' // Chaque quantité est une chaîne de texte
     ]);
 
+    // 2. Gérer l'upload de l'image
     if ($request->hasFile('image')) {
         // Stockage dans storage/app/public/recipes
-        $data['image'] = $request->file('image')->store('recipes', 'public');
+        $validated['image'] = $request->file('image')->store('recipes', 'public');
     }
+    
+    // 3. Créer la recette et attacher les ingrédients
+    $recipe = Recipe::create($validated);
 
-    $recipe = Recipe::create($data);
+    // 4. Préparer les données pour la table pivot (avec les quantités)
+    $ingredientsToAttach = [];
+    if (!empty($validated['ingredients'])) {
+        foreach ($validated['ingredients'] as $ingredientId) {
+            // On associe l'ID de l'ingrédient avec sa quantité
+            $ingredientsToAttach[$ingredientId] = ['quantity' => $validated['quantities'][$ingredientId] ?? ''];
+        }
+    }
+    $recipe->ingredients()->attach($ingredientsToAttach);
 
     return redirect()->route('recipes.show', $recipe->id);
 })->name('recipes.store');
