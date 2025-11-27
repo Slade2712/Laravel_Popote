@@ -17,7 +17,7 @@
                     <a href="{{ route('recipes.show', $recipe->id) }}"
                        class="block bg-white rounded-2xl shadow-md border-t-4 border-[#D4AF37] overflow-hidden hover:shadow-xl hover:scale-[1.02] transition">
 
-                        {{-- IMAGE seulement si disponible --}}
+                        {{-- Si une image est fournie --}}
                         @if(!empty($recipe->image))
                             <img src="{{ asset('storage/' . $recipe->image) }}"
                                  alt="{{ $recipe->title }}"

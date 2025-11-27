@@ -10,6 +10,11 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
+
+
 /*
 |--------------------------------------------------------------------------
 | Recettes
@@ -31,29 +36,28 @@ Route::get('/recipes/create', function() {
 
 // Stockage d'une nouvelle recette
 Route::post('/recipes', function(Request $request) {
-    // 1. Valider toutes les données, y compris les ingrédients
+    // Valider toutes les données
     $validated = $request->validate([
         'title' => 'required|string|max:255',
         'description' => 'nullable|string',
         'instructions' => 'required|string',
         'category_id' => 'required|exists:categories,id',
-        'image' => 'nullable|image|max:2048', // max 2MB
-        'ingredients' => 'nullable|array', // Doit être un tableau
-        'ingredients.*' => 'exists:ingredients,id', // Chaque valeur doit exister dans la table ingredients
+        'image' => 'nullable|image|max:2048',
+        'ingredients' => 'nullable|array', 
+        'ingredients.*' => 'exists:ingredients,id',
         'quantities' => 'nullable|array',
-        'quantities.*' => 'nullable|string|max:100' // Chaque quantité est une chaîne de texte
+        'quantities.*' => 'nullable|string|max:100'
     ]);
 
-    // 2. Gérer l'upload de l'image
+    // Gérer l'upload de l'image
     if ($request->hasFile('image')) {
-        // Stockage dans storage/app/public/recipes
         $validated['image'] = $request->file('image')->store('recipes', 'public');
     }
     
-    // 3. Créer la recette et attacher les ingrédients
+    // Créer la recette
     $recipe = Recipe::create($validated);
 
-    // 4. Préparer les données pour la table pivot (avec les quantités)
+    // Préparer les données pour la table pivot (avec les quantités)
     $ingredientsToAttach = [];
     if (!empty($validated['ingredients'])) {
         foreach ($validated['ingredients'] as $ingredientId) {

@@ -16,7 +16,5 @@ class CategorySeeder extends Seeder
         Category::create(['name' => 'Entrée']);
         Category::create(['name' => 'Plat principal']);
         Category::create(['name' => 'Dessert']);
-        Category::create(['name' => 'Végétarien']);
-        Category::create(['name' => 'Sans Gluten']);
     }
 }

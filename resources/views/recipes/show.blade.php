@@ -1,7 +1,5 @@
 <x-layout>
-    {{-- MODIFICATION ICI : w-[80%] force la largeur à 80% de l'écran --}}
     <div class="w-[80%] mx-auto py-10">
-
         {{-- 1. HEADER (Titre + Catégorie + Date) --}}
         <div class="mb-8 text-center bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
             <h1 class="text-4xl font-extrabold text-[#003049] mb-4">{{ $recipe->title }}</h1>
@@ -25,13 +23,10 @@
             </div>
         </div>
 
-        {{-- GRILLE PRINCIPALE (2 Colonnes) --}}
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-
-            {{-- COLONNE GAUCHE --}}
             <div class="flex flex-col gap-8">
 
-                {{-- 2. INGRÉDIENTS --}}
+                {{-- INGRÉDIENTS --}}
                 <div class="bg-white p-6 rounded-2xl shadow-lg border-t-4 border-[#003049]">
                     <div class="flex items-center gap-3 mb-6 pb-4 border-b border-gray-100">
                         <svg class="w-7 h-7 text-[#D4AF37]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -70,7 +65,7 @@
                     @endif
                 </div>
 
-                {{-- 3. INSTRUCTIONS --}}
+                {{-- INSTRUCTIONS --}}
                 <div class="bg-white p-8 rounded-2xl shadow-lg border-t-4 border-[#D4AF37] flex-grow">
                     <div class="flex items-center gap-3 mb-6 pb-4 border-b border-gray-100">
                         <svg class="w-7 h-7 text-[#D4AF37]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -86,10 +81,8 @@
 
             </div>
 
-            {{-- COLONNE DROITE --}}
             <div class="flex flex-col gap-8">
-
-                {{-- 4. PHOTO --}}
+                {{-- PHOTO --}}
                 <div class="bg-white rounded-2xl shadow-lg overflow-hidden h-fit">
                     @if($recipe->image)
                         <div class="w-full aspect-square bg-gray-100 relative group">
@@ -105,7 +98,7 @@
                     @endif
                 </div>
 
-                {{-- 5. DESCRIPTION --}}
+                {{-- DESCRIPTION --}}
                 <div class="bg-[#FFFDF5] p-6 rounded-2xl shadow-md border border-[#F0E6D2]">
                     <h3 class="text-lg font-bold text-[#003049] mb-3 uppercase tracking-wide text-center">À propos</h3>
                     @if($recipe->description)
@@ -120,7 +113,7 @@
             </div>
         </div>
 
-        {{-- 6. FOOTER --}}
+        {{-- FOOTER DE LA SECTION --}}
         <div class="mt-8 bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col sm:flex-row justify-between items-center gap-4">
             <a href="{{ route('recipes.index') }}"
                class="px-6 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium transition flex items-center gap-2">

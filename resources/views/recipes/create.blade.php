@@ -1,24 +1,33 @@
 <x-layout>
     <div class="max-w-5xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-        
-        {{-- (En-tête et erreurs inchangés...) --}}
-        {{-- Je garde le début du code identique pour la concision --}}
-        <div class="text-center mb-10">
-            {{-- ... --}}
-        </div>
 
-        @if ($errors->any())
-            {{-- ... --}}
-        @endif
+    <div class="text-center mb-12">
+        <span class="inline-block py-1 px-3 rounded-full bg-[#FFFDF5] border border-[#D4AF37] text-[#D4AF37] text-xs font-bold tracking-wider uppercase mb-4">
+            Espace Créateur
+        </span>
+
+        <h1 class="text-4xl md:text-5xl font-extrabold text-[#003049] tracking-tight mb-4">
+            Partagez votre nouvelle <br class="hidden sm:block" />
+            <span class="text-[#D4AF37] relative whitespace-nowrap">
+                Recette Secrète
+                <svg class="absolute w-full h-3 -bottom-1 left-0 text-[#D4AF37] opacity-60" viewBox="0 0 100 10" preserveAspectRatio="none">
+                    <path d="M0 5 Q 50 15 100 5" stroke="currentColor" stroke-width="3" fill="none" />
+                </svg>
+            </span>
+        </h1>
+
+        <p class="text-lg text-gray-500 max-w-2xl mx-auto">
+            Transformez vos ingrédients en souvenirs. Remplissez le formulaire ci-dessous pour ajouter votre plat à la collection.
+        </p>
+    </div>
 
         <form action="{{ route('recipes.store') }}" method="POST" enctype="multipart/form-data" class="bg-white rounded-2xl shadow-xl overflow-hidden">
             @csrf
             
             <div class="grid grid-cols-1 lg:grid-cols-3">
                 
-                {{-- (COLONNE GAUCHE inchangée...) --}}
                 <div class="p-8 lg:col-span-2 space-y-6">
-                   {{-- ... Titre, Description, Catégorie, Instructions ... --}}
+                   {{--  Titre, Description, Catégorie, Instructions --}}
                    <div>
                         <label for="title" class="block text-sm font-semibold text-gray-700 mb-1">Titre de la recette</label>
                         <input type="text" id="title" name="title" value="{{ old('title') }}" required class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:bg-white focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 transition duration-200 outline-none text-gray-800 placeholder-gray-400">
@@ -44,10 +53,9 @@
                     </div>
                 </div>
 
-                {{-- COLONNE DROITE : Visuel & Ingrédients --}}
                 <div class="bg-gray-50 p-8 lg:border-l border-gray-100 space-y-8">
                     
-                    {{-- (Upload Image inchangé...) --}}
+                    {{-- Upload Image  --}}
                     <div>
                         <label class="block text-sm font-semibold text-gray-700 mb-2">Photo du plat</label>
                         <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-xl hover:bg-gray-100 hover:border-[#D4AF37] transition group cursor-pointer relative bg-white">
@@ -63,7 +71,7 @@
                         </div>
                     </div>
 
-                    {{-- SECTION INGRÉDIENTS (MODIFIÉE) --}}
+                    {{-- SECTION INGRÉDIENTS --}}
                     <div x-data="gestionnaireIngredients({{ json_encode($ingredients) }})" class="space-y-4">
                         
                         <label class="block text-sm font-semibold text-gray-700">Ingrédients</label>
@@ -72,7 +80,7 @@
                         <div class="relative" @click.outside="afficherResultats = false">
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                 <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="rou   nd" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                                 </svg>
                             </div>
                             
@@ -94,8 +102,7 @@
                                     <div @click="ajouterIngredient(ingredient)" 
                                          class="cursor-pointer select-none relative py-2 pl-3 pr-9 hover:bg-[#EAE2B7]/30 text-gray-900 transition-colors flex items-center">
                                         
-                                        {{-- 1. IMAGE DANS LA RECHERCHE --}}
-                                        
+                                        {{-- IMAGE DANS LA RECHERCHE --}}
                                         <img :src="getUrlImage(ingredient.name)" 
                                              class="h-8 w-8 rounded-full object-cover mr-3 border border-gray-200" 
                                              alt="">
@@ -122,7 +129,7 @@
                                     
                                     <input type="hidden" name="ingredients[]" :value="ing.id">
                                     
-                                    {{-- 2. IMAGE DANS LA LISTE SÉLECTIONNÉE --}}
+                                    {{-- IMAGE DANS LA LISTE SÉLECTIONNÉE --}}
                                     <img :src="getUrlImage(ing.name)" 
                                          class="h-10 w-10 rounded-full object-cover border border-gray-200" 
                                          alt="">
@@ -150,7 +157,7 @@
                 </div>
             </div>
 
-            {{-- (Footer inchangé...) --}}
+            {{-- Footer de la séction --}}
             <div class="bg-gray-50 px-8 py-5 border-t border-gray-100 flex items-center justify-between">
                 <a href="{{ route('recipes.index') }}" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition">&larr; Retour aux recettes</a>
                 <button type="submit" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg shadow-sm text-white bg-[#D4AF37] hover:bg-[#b08d2b] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#D4AF37] transition-all transform hover:scale-[1.02]">
@@ -180,7 +187,6 @@
                 });
             },
 
-            // 3. NOUVELLE FONCTION pour générer le lien de l'image proprement
             getUrlImage(nomIngredient) {
                 return '/storage/ingredients/' + nomIngredient + '.png';
             },
