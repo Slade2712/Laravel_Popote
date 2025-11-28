@@ -120,9 +120,9 @@
                 <span>←</span> Retour aux recettes
             </a>
 
-            <button class="px-6 py-2 rounded-lg bg-[#FCBF49] text-[#003049] font-bold hover:bg-[#f8b233] transition shadow-md hover:shadow-lg cursor-pointer flex items-center gap-2">
+            <a href="{{ route('recipes.edit', $recipe->id) }}" class="px-6 py-2 rounded-lg bg-[#FCBF49] text-[#003049] font-bold hover:bg-[#f8b233] transition shadow-md hover:shadow-lg cursor-pointer flex items-center gap-2">
                 <span>✏️</span> Modifier la recette
-            </button>
+            </a>
 
             <form action="/recipes/{{ $recipe->id }}" method="POST">
                 @csrf
