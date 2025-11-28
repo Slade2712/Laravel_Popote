@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\RecipeController;
 use App\Models\Recipe;
 use App\Models\Ingredient;
 use App\Models\Category;
@@ -14,67 +16,17 @@ Route::get('/about', function () {
     return view('about');
 })->name('about');
 
-
 /*
 |--------------------------------------------------------------------------
 | Recettes
 |--------------------------------------------------------------------------
 */
 
-// Liste des recettes
-Route::get('/recipes', function() {
-    $recipes = Recipe::all();
-    return view('recipes.index', compact('recipes'));
-})->name('recipes.index');
-
-// Formulaire de création
-Route::get('/recipes/create', function() {
-    $categories = Category::all();
-    $ingredients = Ingredient::orderBy('name')->get(); // On récupère les ingrédients
-    return view('recipes.create', compact('categories', 'ingredients')); // On les passe à la vue
-})->name('recipes.create');
-
-// Stockage d'une nouvelle recette
-Route::post('/recipes', function(Request $request) {
-    // Valider toutes les données
-    $validated = $request->validate([
-        'title' => 'required|string|max:255',
-        'description' => 'nullable|string',
-        'instructions' => 'required|string',
-        'category_id' => 'required|exists:categories,id',
-        'image' => 'nullable|image|max:2048',
-        'ingredients' => 'nullable|array', 
-        'ingredients.*' => 'exists:ingredients,id',
-        'quantities' => 'nullable|array',
-        'quantities.*' => 'nullable|string|max:100'
-    ]);
-
-    // Gérer l'upload de l'image
-    if ($request->hasFile('image')) {
-        $validated['image'] = $request->file('image')->store('recipes', 'public');
-    }
-    
-    // Créer la recette
-    $recipe = Recipe::create($validated);
-
-    // Préparer les données pour la table pivot (avec les quantités)
-    $ingredientsToAttach = [];
-    if (!empty($validated['ingredients'])) {
-        foreach ($validated['ingredients'] as $ingredientId) {
-            // On associe l'ID de l'ingrédient avec sa quantité
-            $ingredientsToAttach[$ingredientId] = ['quantity' => $validated['quantities'][$ingredientId] ?? ''];
-        }
-    }
-    $recipe->ingredients()->attach($ingredientsToAttach);
-
-    return redirect()->route('recipes.show', $recipe->id);
-})->name('recipes.store');
-
-// Affichage d'une recette spécifique
-Route::get('/recipes/{id}', function($id) {
-    $recipe = Recipe::findOrFail($id);
-    return view('recipes.show', compact('recipe'));
-})->name('recipes.show');
+Route::get('/recipes', [RecipeController::class, 'index'])->name('recipes.index');
+Route::get('/recipes/create', [RecipeController::class, 'create'])->name('recipes.create');
+Route::post('recipes/', [RecipeController::class, 'store'])->name('recipes.store');
+Route::get('/recipes/{recipe}', [RecipeController::class, 'show'])->name('recipes.show');
+Route::delete('/recipes/{recipe}', [RecipeController::class, 'destroy']);
 
 /*
 |--------------------------------------------------------------------------
@@ -82,14 +34,5 @@ Route::get('/recipes/{id}', function($id) {
 |--------------------------------------------------------------------------
 */
 
-// Liste des catégories
-Route::get('/categories', function() {
-    $categories = Category::all();
-    return view('categories.index', compact('categories'));
-})->name('categories.index');
-
-// Affichage d'une catégorie spécifique avec ses recettes
-Route::get('/categories/{id}', function($id) {
-    $category = Category::findOrFail($id);
-    return view('categories.show', compact('category'));
-})->name('categories.show');
+Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
+Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('categories.show');

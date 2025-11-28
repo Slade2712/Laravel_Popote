@@ -123,6 +123,14 @@
             <button class="px-6 py-2 rounded-lg bg-[#FCBF49] text-[#003049] font-bold hover:bg-[#f8b233] transition shadow-md hover:shadow-lg cursor-pointer flex items-center gap-2">
                 <span>✏️</span> Modifier la recette
             </button>
+
+            <form action="/recipes/{{ $recipe->id }}" method="POST">
+                @csrf
+                @method("DELETE")
+                <button class="px-6 py-2 rounded-lg bg-[#FF0000] text-[#003049] font-bold cursor-pointer flex items-center gap-2">
+                    <span>🗑️</span> Supprimer la recette
+                </button>
+            </form>
         </div>
 
     </div>
