@@ -31,20 +31,11 @@
             <div class="grid grid-cols-1 lg:grid-cols-3">
 
                 <div class="p-8 lg:col-span-2 space-y-6">
-                    {{--  Titre, Description, Catégorie, Instructions --}}
-                    <div>
-                        <label for="title" class="block text-sm font-semibold text-gray-700 mb-1">Titre de la
-                            recette</label>
-                        <input type="text" id="title" name="title" value="{{ old('title', $recipe->title) }}"
-                            required
-                            class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:bg-white focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 transition duration-200 outline-none text-gray-800 placeholder-gray-400">
-                    </div>
-                    <div>
-                        <label for="description" class="block text-sm font-semibold text-gray-700 mb-1">Description
-                            courte</label>
-                        <textarea id="description" name="description" rows="2"
-                            class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:bg-white focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 transition duration-200 outline-none text-gray-800 placeholder-gray-400">{{ old('description', $recipe->description) }}</textarea>
-                    </div>
+                    <x-input name="title" type="text" label="Titre de la recette" placeholder="Poulet au curry..."
+                        :default="$recipe->title" required />
+
+                    <x-input name="description" label="Description courte" textarea="true" rows="2"
+                        placeholder="Magnifique poulet au curry avec son riz..." :default="$recipe->description" />
                     <div>
                         <label for="category_id"
                             class="block text-sm font-semibold text-gray-700 mb-1">Catégorie</label>
@@ -62,10 +53,8 @@
                         </div>
                     </div>
                     <div>
-                        <label for="instructions" class="block text-sm font-semibold text-gray-700 mb-1">Instructions
-                            détaillées</label>
-                        <textarea id="instructions" name="instructions" rows="8" required
-                            class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:bg-white focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 transition duration-200 outline-none text-gray-800 placeholder-gray-400">{{ old('instructions', $recipe->instructions) }}</textarea>
+                        <x-input name="instructions" label="Instructions détaillées" required textarea="true"
+                            rows="6" placeholder="Couper le poulet..." :default="$recipe->instructions" />
                     </div>
                 </div>
 
