@@ -9,4 +9,31 @@
     --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif,
         "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
         "Noto Color Emoji";
+
+    --color-dark-mustard: #c19c2f;
+    --color-mustard: #d4af37;
+    --color-gold: #f8b233;
+    --color-sunflower: #fcbf49;
+    --color-cream: #fffdf5;
+    --color-vanilla: #eae2b7;
+    --color-ketchup: #e04141;
+    --color-blue-berry: #003049;
+}
+
+@layer components {
+    .grid {
+        @apply grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-24;
+    }
+
+    .badge {
+        @apply px-4 py-1.5 rounded-full bg-cream border border-gold text-gold text-sm font-bold tracking-wide uppercase inline-block mb-2;
+    }
+
+    .button_explore {
+        @apply px-8 py-4 rounded-xl bg-sunflower text-blue-berry font-bold text-lg hover:bg-mustard transition shadow-lg hover:shadow-xl hover:-translate-y-1 text-center;
+    }
+
+    .button_create {
+        @apply px-8 py-4 rounded-xl bg-white border-2 border-gray-100 text-gray-700 font-bold text-lg hover:border-gold hover:text-gold transition text-center;
+    }
 }

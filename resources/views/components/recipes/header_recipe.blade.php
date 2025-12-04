@@ -1,12 +1,12 @@
 @props(['recipe'])
 
 <div class="mb-8 text-center bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-    <h1 class="text-4xl font-extrabold text-[#003049] mb-4">{{ $recipe->title }}</h1>
+    <h1 class="text-4xl font-extrabold text-blue-berry mb-4">{{ $recipe->title }}</h1>
 
     <div class="flex flex-wrap justify-center items-center gap-3 text-sm">
         @if ($recipe->category)
             <a href="{{ route('categories.show', $recipe->category->id) }}"
-                class="inline-block bg-[#D4AF37] hover:bg-[#c19c2f] text-white py-1 px-4 rounded-full transition font-medium">
+                class="inline-block bg-gold hover:bg-dark-mustard text-white py-1 px-4 rounded-full transition font-medium">
                 {{ $recipe->category->name }}
             </a>
         @else

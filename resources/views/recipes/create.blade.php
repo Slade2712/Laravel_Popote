@@ -3,15 +3,15 @@
 
         <div class="text-center mb-12">
             <span
-                class="inline-block py-1 px-3 rounded-full bg-[#FFFDF5] border border-[#D4AF37] text-[#D4AF37] text-xs font-bold tracking-wider uppercase mb-4">
+                class="inline-block py-1 px-3 rounded-full bg-cream border border-gold text-gold text-xs font-bold tracking-wider uppercase mb-4">
                 Espace Créateur
             </span>
 
-            <h1 class="text-4xl md:text-5xl font-extrabold text-[#003049] tracking-tight mb-4">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-blue-berry tracking-tight mb-4">
                 Partagez votre nouvelle <br class="hidden sm:block" />
-                <span class="text-[#D4AF37] relative whitespace-nowrap">
+                <span class="text-gold relative whitespace-nowrap">
                     Recette Secrète
-                    <svg class="absolute w-full h-3 -bottom-1 left-0 text-[#D4AF37] opacity-60" viewBox="0 0 100 10"
+                    <svg class="absolute w-full h-3 -bottom-1 left-0 text-gold opacity-60" viewBox="0 0 100 10"
                         preserveAspectRatio="none">
                         <path d="M0 5 Q 50 15 100 5" stroke="currentColor" stroke-width="3" fill="none" />
                     </svg>
@@ -44,7 +44,7 @@
                         </label>
                         <div class="relative">
                             <select id="category_id" name="category_id" required
-                                class="w-full pl-4 pr-10 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:bg-white focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 transition duration-200 outline-none appearance-none text-gray-800">
+                                class="w-full pl-4 pr-10 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:bg-white focus:border-gold focus:ring-2 focus:ring-gold/20 transition duration-200 outline-none appearance-none text-gray-800">
                                 <option value="">-- Choisir une catégorie --</option>
                                 @foreach ($categories as $category)
                                     <option value="{{ $category->id }}"
@@ -64,11 +64,11 @@
                     <div>
                         <label class="block text-sm font-semibold text-gray-700 mb-2">Photo du plat</label>
                         <div
-                            class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-xl hover:bg-gray-100 hover:border-[#D4AF37] transition group cursor-pointer relative bg-white">
+                            class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-xl hover:bg-gray-100 hover:border-gold transition group cursor-pointer relative bg-white">
                             <input type="file" id="image" name="image"
                                 class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
                             <div class="space-y-1 text-center">
-                                <svg class="mx-auto h-12 w-12 text-gray-400 group-hover:text-[#D4AF37] transition"
+                                <svg class="mx-auto h-12 w-12 text-gray-400 group-hover:text-gold transition"
                                     stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
                                     <path
                                         d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
@@ -76,7 +76,7 @@
                                 </svg>
                                 <div class="flex text-sm text-gray-600 justify-center">
                                     <span
-                                        class="relative cursor-pointer bg-transparent rounded-md font-medium text-[#D4AF37] group-hover:text-[#b08d2b]">Télécharger
+                                        class="relative cursor-pointer bg-transparent rounded-md font-medium text-gold group-hover:text-dark-mustard">Télécharger
                                         une image</span>
                                 </div>
                             </div>
@@ -100,7 +100,7 @@
 
                             <input type="text" x-model="termeRecherche" @focus="afficherResultats = true"
                                 @input="afficherResultats = true" placeholder="Rechercher (ex: Farine, Oeufs...)"
-                                class="pl-10 block w-full border-gray-200 rounded-lg shadow-sm focus:ring-[#D4AF37] focus:border-[#D4AF37] sm:text-sm py-2.5 bg-gray-50 transition-colors"
+                                class="pl-10 block w-full border-gray-200 rounded-lg shadow-sm focus:ring-gold focus:border-gold sm:text-sm py-2.5 bg-gray-50 transition-colors"
                                 autocomplete="off">
 
                             {{-- Dropdown des résultats --}}
@@ -111,7 +111,7 @@
 
                                 <template x-for="ingredient in ingredientsFiltres" :key="ingredient.id">
                                     <div @click="ajouterIngredient(ingredient)"
-                                        class="cursor-pointer select-none relative py-2 pl-3 pr-9 hover:bg-[#EAE2B7]/30 text-gray-900 transition-colors flex items-center">
+                                        class="cursor-pointer select-none relative py-2 pl-3 pr-9 hover:bg-EAE2B7]/30 text-gray-900 transition-colors flex items-center">
 
                                         {{-- IMAGE DANS LA RECHERCHE --}}
                                         <img :src="getUrlImage(ingredient.name)"
@@ -138,7 +138,7 @@
 
                             <template x-for="(ing, index) in ingredientsAjoutes" :key="ing.id">
                                 <div
-                                    class="flex items-center gap-3 bg-white p-3 rounded-lg border border-gray-200 shadow-sm transition-all hover:border-[#D4AF37]/50 group">
+                                    class="flex items-center gap-3 bg-white p-3 rounded-lg border border-gray-200 shadow-sm transition-all hover:border-gold/50 group">
 
                                     <input type="hidden" name="ingredients[]" :value="ing.id">
 
@@ -152,7 +152,7 @@
                                     <div class="w-1/3">
                                         <input type="text" :name="'quantities[' + ing.id + ']'"
                                             x-model="ing.quantity" placeholder="Qté" required
-                                            class="quantity-input w-full text-sm border-gray-200 rounded-md focus:ring-[#D4AF37] focus:border-[#D4AF37] bg-gray-50 focus:bg-white transition-colors py-1.5">
+                                            class="quantity-input w-full text-sm border-gray-200 rounded-md focus:ring-gold focus:border-gold bg-gray-50 focus:bg-white transition-colors py-1.5">
                                     </div>
 
                                     <button type="button" @click="supprimerIngredient(index)"
@@ -176,7 +176,7 @@
                     class="text-sm font-medium text-gray-600 hover:text-gray-900 transition">&larr; Retour aux
                     recettes</a>
                 <button type="submit"
-                    class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg shadow-sm text-white bg-[#D4AF37] hover:bg-[#b08d2b] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#D4AF37] transition-all transform hover:scale-[1.02]">
+                    class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg shadow-sm text-white bg-gold hover:bg-dark-mustard focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gold transition-all transform hover:scale-[1.02]">
                     <svg class="-ml-1 mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>

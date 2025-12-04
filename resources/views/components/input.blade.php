@@ -18,10 +18,10 @@
         <input type="{{ $type }}" id="{{ $name }}" name="{{ $name }}"
             value="{{ old($name, $default) }}" placeholder="{{ $placeholder }}"
             @if ($required) required @endif
-            class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:bg-white focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 transition duration-200 outline-none text-gray-800 placeholder-gray-400">
+            class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:bg-white focus:border-gold focus:ring-2 focus:ring-gold/20 transition duration-200 outline-none text-gray-800 placeholder-gray-400">
     @else
         <textarea id="{{ $name }}" name="{{ $name }}" placeholder="{{ $placeholder }}"
             rows="{{ $rows }}" @if ($required) required @endif
-            class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:bg-white focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 transition duration-200 outline-none text-gray-800 placeholder-gray-400">{{ old($name, $default) }}</textarea>
+            class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:bg-white focus:border-gold focus:ring-2 focus:ring-gold/20 transition duration-200 outline-none text-gray-800 placeholder-gray-400">{{ old($name, $default) }}</textarea>
     @endif
 </div>
